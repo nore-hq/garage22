@@ -36,6 +36,11 @@
   opacity: 0;
 }
 
+.cursor.hidden, .dot.hidden {
+  opacity: 0 !important;
+  transition: opacity 0.2s ease;
+}
+
 /* Hide custom cursor on touch/mobile */
 @media (hover: none), (pointer: coarse) {
   .cursor, .dot {

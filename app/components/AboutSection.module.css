@@ -2,6 +2,27 @@
   padding: 10rem 0;
   background-color: var(--color-bg);
   position: relative;
+  overflow: hidden;
+}
+
+.videoBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.85); /* Dark overlay to ensure text legibility */
+  z-index: 2;
 }
 
 .container {
@@ -9,6 +30,8 @@
   margin: 0 auto;
   padding: 0 2rem;
   text-align: center;
+  position: relative;
+  z-index: 3;
 }
 
 .title {

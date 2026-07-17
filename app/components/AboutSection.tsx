@@ -1,9 +1,33 @@
+"use client";
+
 import styles from './AboutSection.module.css';
 import ScrollReveal from './ScrollReveal';
+import { useEffect, useRef } from 'react';
 
 export default function AboutSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(e => console.log("About video autoplay blocked", e));
+    }
+  }, []);
+
   return (
     <section id="about" className={styles.about}>
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        className={styles.videoBg}
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/videos/garagre22-porche-video.mp4" type="video/mp4" />
+      </video>
+      <div className={styles.videoOverlay}></div>
+
       <div className={styles.container}>
         <ScrollReveal className={styles.content}>
           <h2 className={styles.title}>The Standard of Excellence</h2>

@@ -2,7 +2,7 @@
 
 import styles from './ServicesSection.module.css';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 
 const services = [
@@ -28,6 +28,15 @@ const services = [
 
 export default function ServicesSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === services.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? services.length - 1 : prev - 1));
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -55,24 +64,53 @@ export default function ServicesSection() {
           <h2 className={styles.title}>Our Services</h2>
           <div className={styles.divider}></div>
         </div>
-        <div className={styles.grid}>
-          {services.map((service, index) => (
-            <ScrollReveal key={service.id} className={styles.card} delay={index * 0.2}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className={styles.image}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className={styles.imageOverlay}></div>
-              </div>
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{service.title}</h3>
-                <p className={styles.cardDesc}>{service.description}</p>
-              </div>
-            </ScrollReveal>
+
+        <ScrollReveal className={styles.sliderContainer}>
+          <button className={`${styles.sliderBtn} ${styles.prevBtn}`} onClick={prevSlide} aria-label="Previous service">
+            &larr;
+          </button>
+          
+          <div className={styles.sliderViewport}>
+            <div 
+              className={styles.sliderTrack} 
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {services.map((service, index) => (
+                <div key={service.id} className={styles.slide}>
+                  <div className={styles.card}>
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className={styles.image}
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                      />
+                      <div className={styles.imageOverlay}></div>
+                    </div>
+                    <div className={styles.cardContent}>
+                      <h3 className={styles.cardTitle}>{service.title}</h3>
+                      <p className={styles.cardDesc}>{service.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button className={`${styles.sliderBtn} ${styles.nextBtn}`} onClick={nextSlide} aria-label="Next service">
+            &rarr;
+          </button>
+        </ScrollReveal>
+        
+        <div className={styles.sliderDots}>
+          {services.map((_, index) => (
+            <button 
+              key={index} 
+              className={`${styles.dot} ${currentSlide === index ? styles.activeDot : ''}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
         </div>
       </div>

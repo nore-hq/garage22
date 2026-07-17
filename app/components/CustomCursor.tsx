@@ -14,12 +14,35 @@ export default function CustomCursor() {
     const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
 
+    let isVisible = false;
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isVisible) {
+        // Snap instantly on return to avoid flying across the screen
+        posRef.current = { x: e.clientX, y: e.clientY };
+        targetRef.current = { x: e.clientX, y: e.clientY };
+        isVisible = true;
+        cursorRef.current?.classList.remove(styles.hidden);
+        dotRef.current?.classList.remove(styles.hidden);
+      }
+
       targetRef.current = { x: e.clientX, y: e.clientY };
       // Dot follows instantly
       if (dotRef.current) {
         dotRef.current.style.left = `${e.clientX}px`;
         dotRef.current.style.top = `${e.clientY}px`;
+      }
+    };
+
+    const handleMouseLeaveWindow = () => {
+      isVisible = false;
+      cursorRef.current?.classList.add(styles.hidden);
+      dotRef.current?.classList.add(styles.hidden);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        handleMouseLeaveWindow();
       }
     };
 
@@ -48,6 +71,12 @@ export default function CustomCursor() {
     };
 
     document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeaveWindow);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    
+    // Start initially hidden
+    handleMouseLeaveWindow();
+
     animate();
 
     // Attach hover listeners to all interactive elements
@@ -60,6 +89,8 @@ export default function CustomCursor() {
     return () => {
       cancelAnimationFrame(reqId);
       document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeaveWindow);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       interactives.forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
