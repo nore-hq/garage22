@@ -23,6 +23,8 @@ export default function CustomCursor() {
       }
     };
 
+    let reqId: number;
+
     // Smooth trailing animation for the outer ring
     const animate = () => {
       posRef.current.x += (targetRef.current.x - posRef.current.x) * 0.12;
@@ -32,7 +34,7 @@ export default function CustomCursor() {
         cursorRef.current.style.left = `${posRef.current.x}px`;
         cursorRef.current.style.top = `${posRef.current.y}px`;
       }
-      requestAnimationFrame(animate);
+      reqId = requestAnimationFrame(animate);
     };
 
     // Scale up on hover over interactive elements
@@ -56,6 +58,7 @@ export default function CustomCursor() {
     });
 
     return () => {
+      cancelAnimationFrame(reqId);
       document.removeEventListener("mousemove", handleMouseMove);
       interactives.forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnter);

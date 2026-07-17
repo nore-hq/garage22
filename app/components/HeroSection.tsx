@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './HeroSection.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 import InteractiveText from './InteractiveText';
 
 export default function HeroSection() {
@@ -34,28 +35,30 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       {/* Background looping video */}
-      <video
-        ref={loopVideoRef}
-        className={`${styles.videoBg} ${styles.loopVideo}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src="/videos/video-main.mp4" type="video/mp4" />
-      </video>
-
-      {/* Intro video on top */}
-      <video
-        ref={introVideoRef}
-        className={`${styles.videoBg} ${styles.introVideo} ${introFinished ? styles.fadeOut : ''}`}
-        autoPlay
-        muted
-        playsInline
-        onEnded={() => setIntroFinished(true)}
-      >
-        <source src="/videos/into-video.mp4" type="video/mp4" />
-      </video>
+      <div className={styles.videoWrapper}>
+        <video
+          ref={loopVideoRef}
+          src="/videos/video-main.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className={styles.loopVideo}
+        />
+        <video
+          ref={introVideoRef}
+          src="/videos/into-video.mp4"
+          autoPlay
+          muted
+          playsInline
+          className={`${styles.introVideo} ${introFinished ? styles.fadeOut : ''}`}
+          onEnded={() => setIntroFinished(true)}
+        />
+        {/* G22 Logo overlay inside the video wrapper so it perfectly tracks the Gemini watermark */}
+        <div className={styles.watermarkCover}>
+          <Image src="/images/logo.jpeg" alt="Garage 22" fill style={{ objectFit: 'contain' }} />
+        </div>
+      </div>
 
       <div className={styles.overlay}></div>
       
@@ -66,6 +69,7 @@ export default function HeroSection() {
           <Link href="#services" className={styles.primaryBtn}>Explore Services</Link>
         </div>
       </div>
+
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import styles from './ServicesSection.module.css';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import ScrollReveal from './ScrollReveal';
 
 const services = [
   {
@@ -55,8 +56,8 @@ export default function ServicesSection() {
           <div className={styles.divider}></div>
         </div>
         <div className={styles.grid}>
-          {services.map((service) => (
-            <div key={service.id} className={styles.card}>
+          {services.map((service, index) => (
+            <ScrollReveal key={service.id} className={styles.card} delay={index * 0.2}>
               <div className={styles.imageWrapper}>
                 <Image
                   src={service.image}
@@ -71,7 +72,7 @@ export default function ServicesSection() {
                 <h3 className={styles.cardTitle}>{service.title}</h3>
                 <p className={styles.cardDesc}>{service.description}</p>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

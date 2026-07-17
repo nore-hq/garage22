@@ -11,6 +11,7 @@ interface InteractiveTextProps {
 
 export default function InteractiveText({ text, className = "", delayOffset = 0 }: InteractiveTextProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [isAssembled, setIsAssembled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
@@ -19,11 +20,26 @@ export default function InteractiveText({ text, className = "", delayOffset = 0 
     const timer = setTimeout(() => {
       setIsMounted(true);
     }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+
+    // Calculate total time for the entrance animation to finish
+    // Base 1.5s transition + max delay
+    const totalChars = text.length;
+    const maxDelay = totalChars * 15; // 0.015s * 1000
+    
+    const assembleTimer = setTimeout(() => {
+      setIsAssembled(true);
+    }, 1500 + maxDelay + 200);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(assembleTimer);
+    };
+  }, [text]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isMounted) return;
+    // Do absolutely nothing until the CSS entrance animation is completely finished!
+    // Otherwise, mouse movements will rip the letters out of their assembly and break the layout.
+    if (!isAssembled) return;
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
@@ -67,6 +83,7 @@ export default function InteractiveText({ text, className = "", delayOffset = 0 
   };
 
   const handleMouseLeave = () => {
+    if (!isAssembled) return;
     charRefs.current.forEach((charNode) => {
       if (!charNode) return;
       charNode.style.transform = '';
@@ -97,7 +114,8 @@ export default function InteractiveText({ text, className = "", delayOffset = 0 
             const randomY = (Math.cos(currentIdx * 43.1) * 100).toFixed(2);
             const randomRot = (Math.sin(currentIdx * 9.2) * 180).toFixed(2);
             
-            const delay = delayOffset + currentIdx * 0.05;
+            // Drastically reduce the delay per character so long sentences don't take forever
+            const delay = delayOffset + currentIdx * 0.015;
 
             return (
               <span
