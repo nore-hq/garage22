@@ -1,0 +1,41 @@
+.about {
+  padding: 10rem 0;
+  background-color: var(--color-bg);
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #fff;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.divider {
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-accent);
+  margin: 0 auto 4rem;
+}
+
+.text {
+  font-size: 1.05rem;
+  color: #d0d0d0;
+  line-height: 2;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 6rem 0;
+  }
+}

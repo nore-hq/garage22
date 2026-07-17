@@ -1,0 +1,136 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh; /* Better for mobile browsers with dynamic UI */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #050505;
+}
+
+.videoBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.loopVideo {
+  z-index: 1;
+}
+
+.introVideo {
+  z-index: 2;
+  transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 5, 0.3) 0%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+  z-index: 3;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+  z-index: 4;
+  /* Let children animate individually, handle parallax with transition */
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.title {
+  font-family: var(--font-royal);
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+  display: block;
+}
+
+.subtitle {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: #d0d0d0;
+  margin-bottom: 3.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  display: block;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 1.3s;
+}
+
+.primaryBtn {
+  padding: 1rem 3rem;
+  border: 1px solid var(--color-text);
+  background-color: transparent;
+  color: var(--color-text);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  transition: all var(--transition-medium);
+}
+
+.primaryBtn:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile specific tweaks */
+@media (max-width: 768px) {
+  .title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .subtitle {
+    margin-bottom: 2.5rem;
+  }
+  .videoBg {
+    /* If the car is being cropped out on mobile, shifting the focus slightly down/center helps */
+    object-position: center 60%;
+  }
+  .overlay {
+    /* Slightly darker on mobile to guarantee text legibility */
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 5, 5, 0.4) 0%,
+      rgba(5, 5, 5, 0.85) 100%
+    );
+  }
+}

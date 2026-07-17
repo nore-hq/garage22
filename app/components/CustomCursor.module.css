@@ -1,0 +1,44 @@
+.cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cursor.hover {
+  width: 60px;
+  height: 60px;
+  border-color: var(--color-accent);
+  background-color: rgba(198, 168, 124, 0.08);
+}
+
+.dot {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.dot.dotHover {
+  opacity: 0;
+}
+
+/* Hide custom cursor on touch/mobile */
+@media (hover: none), (pointer: coarse) {
+  .cursor, .dot {
+    display: none !important;
+  }
+}

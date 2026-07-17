@@ -1,0 +1,38 @@
+.container {
+  display: inline-block;
+  perspective: 1000px; /* Enable 3D space for spinning */
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap; /* Keep characters of a word together */
+}
+
+.space {
+  display: inline-block;
+  width: 0.3em;
+}
+
+.char {
+  display: inline-block;
+  position: relative;
+  /* Assembly transition */
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.5s ease-out,
+              filter 1.5s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  cursor: none;
+}
+
+/* 
+  Once assembled, the inline styles are removed by React, 
+  so it falls back to these defaults seamlessly.
+*/
+.char.assembled {
+  transform: translate3d(0, 0, 0) rotateZ(0deg) scale(1);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* JS magnetic proximity handles the interactive hover state now */
