@@ -16,16 +16,16 @@ export default function Footer() {
               The ultimate destination for luxury automotive care in Kerala. We redefine perfection with every service.
             </p>
           </div>
-          
+
           <div className={styles.contactInfo}>
             <h3 className={styles.heading}>Visit Us</h3>
             <p className={styles.detail}>Kazhakootam-Kilimanoor Road</p>
             <p className={styles.detail}>Kazhakuttam, Thiruvananthapuram</p>
             <p className={styles.detail}>Kerala, India</p>
-            <Link 
-              href="https://maps.app.goo.gl/nG69VWLVmY6ApBh38" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <Link
+              href="https://maps.app.goo.gl/nG69VWLVmY6ApBh38"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.mapLink}
             >
               View on Google Maps
@@ -34,13 +34,15 @@ export default function Footer() {
 
           <div className={styles.contactInfo}>
             <h3 className={styles.heading}>Connect</h3>
-            <p className={styles.detail}>Phone: +91 98765 43210</p>
+            <p className={styles.detail}>Phone: +91 96697 32222</p>
+            <p className={styles.detail}>        +91 97470 07205</p>
+            <p className={styles.detail}>        +91 77366 44421</p>
             <p className={styles.detail}>Email: service@garage22.in</p>
             <div className={styles.socials}>
-              <Link 
-                href="https://www.instagram.com/garage_2_2?igsh=MXZwd3htbmQ0MHI0" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <Link
+                href="https://www.instagram.com/garage_2_2?igsh=MXZwd3htbmQ0MHI0"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.socialLink}
               >
                 Instagram
@@ -48,7 +50,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        
+
         <div className={styles.bottomBar}>
           <p>&copy; {new Date().getFullYear()} Garage 22. All rights reserved.</p>
         </div>
