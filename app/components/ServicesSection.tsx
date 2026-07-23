@@ -43,21 +43,16 @@ const services = [
   },
   {
     id: 8,
-    title: 'Insurance Claim Assistance',
-    description: 'Hassle-free cashless insurance claims and end-to-end liaison with all major insurance providers, getting your vehicle back on the road smoothly.'
-  },
-  {
-    id: 9,
     title: 'Pre-Purchase Inspection',
     description: 'Comprehensive 150+ point inspection covering engine health, undercarriage, bodywork, and ECU scans so you can buy your next luxury vehicle with absolute confidence.'
   },
   {
-    id: 10,
+    id: 9,
     title: '3D Wheel Alignment & Balancing',
     description: 'High-precision laser alignment and dynamic wheel balancing to eliminate steering vibrations, prevent uneven tire wear, and ensure straight-line stability.'
   },
   {
-    id: 11,
+    id: 10,
     title: 'A/C Service & Repairs',
     description: 'Complete air conditioning system overhaul, refrigerant leak detection, compressor diagnostics, and anti-bacterial duct cleaning for crisp, ice-cold airflow.'
   }
